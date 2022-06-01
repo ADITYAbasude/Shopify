@@ -1,0 +1,19 @@
+body{
+    height: 100vh;
+}
+
+.formBody {
+    width: 400px;
+    box-shadow: -1px 1px 15px #6e8773;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 5%;
+    /* overflow: hidden; */
+
+}
+
+*::-webkit-scrollbar-thumb {
+    width: 5px;
+    background-color: black;
+    border-radius: 5px;
+  }
