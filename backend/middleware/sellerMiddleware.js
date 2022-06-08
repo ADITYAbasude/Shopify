@@ -12,10 +12,8 @@ const sellerMiddleware = (req, res, next) => {
 
         const data =  jwt.verify(token, process.env.khupiya);
         req.seller = data.seller;
-        console.log(data)
         next();
     } catch (error) {
-        console.log(error)
         res.status(401).send({ error: error})
     }
 }

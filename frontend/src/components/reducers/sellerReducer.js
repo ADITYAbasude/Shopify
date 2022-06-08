@@ -103,3 +103,24 @@ export const getSellerInfoReducer = (state = {}, action) => {
         default: return state
     }
 }
+
+
+export const getSellerOrderReducer = (state = {}, action) => {
+    switch (action.type) {
+        case 'GET_SELLER_ORDER_REQUEST':
+            return {
+                status: true
+            }
+        case 'GET_SELLER_ORDER_SUCCESSFUL':
+            return {
+                status: false,
+                orders: action.payload
+            }
+        case 'GET_SELLER_ORDER_FAIL':
+            return {
+                status: false,
+            }
+
+        default: return state
+    }
+}

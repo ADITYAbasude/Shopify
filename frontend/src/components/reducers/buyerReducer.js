@@ -107,7 +107,7 @@ export const deleteProductFromCartReducer = (state = {}, action) => {
     switch (action.type) {
         case 'DELETE_CART_REQUEST':
             return {
-                loading: true
+                status: true
             }
         case 'DELETE_CART_SUCCESSFUL':
             return {
@@ -116,7 +116,28 @@ export const deleteProductFromCartReducer = (state = {}, action) => {
             }
         case 'DELETE_CART_FAIL':
             return {
-                loading: false,
+                status: false,
+                error: action.payload
+            }
+
+        default: return state
+    }
+} 
+
+export const getRandProductReducer = (state = {}, action) => {
+    switch (action.type) {
+        case 'RAND_PRODUCT_REQUEST':
+            return {
+                status: true
+            }
+        case 'RAND_PRODUCT_SUCCESSFUL':
+            return {
+                status: false,
+                data : action.payload
+            }
+        case 'RAND_PRODUCT_FAIL':
+            return {
+                status: false,
                 error: action.payload
             }
 

@@ -6,6 +6,7 @@ const bcryptjs = require("bcryptjs");
 const router = express.Router()
 const authMiddleware = require('../middleware/authMiddleware');
 const cart = require("../modules/cart");
+const orders = require("../modules/orders");
 require('dotenv').config()
 
 
@@ -46,8 +47,15 @@ router.post("/signUp", [
         const jwt = JWT.sign(userId, process.env.khupiya)       // generating a jsonWebToken
 
         const findCart = await cart.findOne({ user: userId.findUser.id })       // creating a cart for a user to add their favorite products
+        const findOrderCart = await orders.findOne({ user: userId.findUser.id })
         if (!findCart) {
             cart.create({
+                user: userId.findUser.id
+            })
+        }
+
+        if (!findOrderCart) {
+            orders.create({
                 user: userId.findUser.id
             })
         }
@@ -56,7 +64,7 @@ router.post("/signUp", [
 
     } catch (e) {
         res.status(500).json({ error: e })      // if any error is occurred then throw a INTERNAL SERVER ERROR status (500)
-        console.log(e)
+
     }
 })
 
@@ -90,8 +98,15 @@ router.post('/login',
             const jwt = JWT.sign(userId, process.env.khupiya)       // generating a jsonWebToken
 
             const findCart = await cart.findOne({ user: userId.findUser.id })       // creating a cart for a user to add their favorite products
+            const findOrderCart = await orders.findOne({ user: userId.findUser.id })
             if (!findCart) {
                 cart.create({
+                    user: userId.findUser.id
+                })
+            }
+
+            if (!findOrderCart) {
+                orders.create({
                     user: userId.findUser.id
                 })
             }

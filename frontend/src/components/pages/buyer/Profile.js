@@ -3,7 +3,7 @@ import { Button, Container, FormControl, TextField, ThemeProvider, createTheme }
 import UpdateRoundedIcon from '@mui/icons-material/UpdateRounded';
 import { useDispatch } from 'react-redux'
 import PhoneInput from 'react-phone-input-2'
-
+import {userInfoAction} from '../../actions/userAction'
 const Profile = () => {
 
     const theme1 = createTheme({
@@ -16,21 +16,21 @@ const Profile = () => {
     })
     const data = JSON.parse(localStorage.getItem('admin'))
     const dispatch = useDispatch()
-    // const [info, setInfo] = useState({
-    //     name: data.name,
-    //     email: data.email,
-    //     address: data.address,
-    //     mobile: data.mobile
-    // })
-    // console.log((info))
+    const [info, setInfo] = useState({
+        name: data.name,
+        email: data.email,
+        address: data.address,
+        mobile: data.mobile
+    })
+    console.log((info))
 
     const handleUserInfo = (e) => {
-        // setInfo({ ...info, [e.target.name]: e.target.value })
+        setInfo({ ...info, [e.target.name]: e.target.value })
     }
 
-    // useEffect(() => {
-    //     dispatch(userInfoAction())
-    // }, [])
+    useEffect(() => {
+        dispatch(userInfoAction())
+    }, [])
 
     return (
 
@@ -51,7 +51,7 @@ const Profile = () => {
                             name="name"
                             required
                             type="text"
-                            // value={data.name}
+                            value={data.name}
                             onChange={handleUserInfo}
                         />
                         <br />
@@ -61,7 +61,7 @@ const Profile = () => {
                             name="email"
                             required
                             type="email"
-                            // value={data.email}
+                            value={data.email}
                             onChange={handleUserInfo}
                         />
                         <br />
@@ -88,7 +88,7 @@ const Profile = () => {
                             name="address"
                             required
                             type="address"
-                            // value={data.address}
+                            value={data.address}
                             onChange={handleUserInfo}
                         />
                         <br />

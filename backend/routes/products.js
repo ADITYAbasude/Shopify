@@ -7,7 +7,8 @@ const sellerMiddleware = require('../middleware/sellerMiddleware');
 const authMiddleware = require("../middleware/authMiddleware");
 const cart = require("../modules/cart");
 const fs = require("fs")
-const path = require("path")
+const path = require("path");
+const addProductModule = require("../modules/addProductModule");
 
 require('dotenv').config()
 
@@ -25,6 +26,20 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 
 
+// taking a random products from product collection 
+router.get('/randProduct', async (req, res) => {
+    const product = await addProductModule.find().limit(6)
+    let arr = []
+    try {
+        arr.push(product.sort((a, b) => {
+            return 0.5 - Math.random()
+        }))
+        res.json(arr)
+    } catch (error) {
+        console.log(arr)
+    }
+})
+
 // add product api 
 router.post('/addProduct', sellerMiddleware, upload.single('testImage'), async (req, res, next) => {
     const error = validationResult(req)
@@ -36,12 +51,14 @@ router.post('/addProduct', sellerMiddleware, upload.single('testImage'), async (
 
     try {
         const sellerId = req.seller.id;
-        const { title, productsDetails, stock, amount, productType, name } = req.body
+        const { title, productsDetails, stock, amount, productType } = req.body
         if (productType === "Type of product")
             return res.status(400).json({
                 error: "pls select type of product"
             })
 
+
+        // console.log(req.files.testImage)
 
         const product = await productModule.create({
             title: title,
@@ -50,7 +67,6 @@ router.post('/addProduct', sellerMiddleware, upload.single('testImage'), async (
             amount: amount,
             productType: productType,
             sellerId: sellerId,
-            name: name,
             image: {
                 data: fs.readFileSync(path.join('uploads/' + req.file.filename)),
                 contentType: `image/jpg`
@@ -86,8 +102,11 @@ router.get('/getProducts/:productType', async (req, res) => {
     try {
 
         const productType = req.params.productType
-
-        const data = await (productModule.find({ productType: productType }).limit(5))
+        const arr = new Array(5)
+        const data = await (productModule.find({ productType: productType }))
+        data.sort(() => {
+            return 0.5 - Math.random()
+        })
         res.json({ data })
     } catch (e) {
         console.log(e)
@@ -228,10 +247,10 @@ router.put('/updateQuantity/:productId', authMiddleware, async (req, res) => {
             return res.status(404).json({ message: 'Not found' })
 
         product.products.filter(item => {
-            if (item.productId == productId) { 
+            if (item.productId == productId) {
                 item.quantity = quantity
                 res.json({ message: 'successfully update' })
-            } 
+            }
         })
         await product.save()
 
@@ -240,5 +259,7 @@ router.put('/updateQuantity/:productId', authMiddleware, async (req, res) => {
         res.status(500).json({ message: 'Internal server error' })
     }
 })
+
+
 
 module.exports = router

@@ -4,8 +4,9 @@ const JWT = require('jsonwebtoken')
 const bcryptjs = require("bcryptjs");
 const router = express.Router()
 const registration = require('../modules/sellerRegister');
-const sellerMiddleware = require("../middleware/sellerMiddleware");
-const product = require('../modules/addProductModule')
+const product = require('../modules/addProductModule');
+const sellerOrders = require("../modules/sellerOrders");
+
 
 require('dotenv').config()
 
@@ -47,6 +48,14 @@ router.post('/registration',
             const sellerId = { seller: { id: seller.id } }
             const jwt = JWT.sign(sellerId, process.env.khupiya)
 
+            const findSeller = await sellerOrders.findOne({ sellerId: sellerId.seller.id })
+            console.log(sellerId.seller.id)
+            if (!findSeller) {
+                sellerOrders.create({
+                    sellerId: sellerId.seller.id
+                })
+            }
+
             res.json({ sellerToken: jwt })
         } catch (e) {
             res.status(500).json({ error: e })       // if any error is occurred then throw a INTERNAL SERVER ERROR status (500)
@@ -73,9 +82,18 @@ router.post('/sellerLogin', [
 
         const sellerId = { seller: { id: seller.id } }
         const jwt = JWT.sign(sellerId, process.env.khupiya)
+
+        const findSeller = await sellerOrders.findOne({ sellerId: sellerId.seller.id })
+        console.log(sellerId.seller.id)
+        if (!findSeller) {
+            sellerOrders.create({
+                sellerId: sellerId.seller.id
+            })
+        }
         res.json({ sellerToken: jwt })
     } catch (error) {
         res.status(500).json({ error: error })
+        console.error(error)
     }
 })
 

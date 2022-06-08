@@ -4,10 +4,6 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 
 const ToolBox = () => {
-    const btn = {
-        color: 'white',
-        textDecoration: 'none'
-    }
     const history = useNavigate()
     return (
         <>
@@ -15,8 +11,7 @@ const ToolBox = () => {
                 margin: '5px'
             }}>
                 <nav>
-                    <LinkContainer to={'/'}>
-
+                    <LinkContainer to={'/sellerOrders'}>
                         <Button size='sm'>
                             See Orders
                         </Button>

@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const AddProducts = () => {
 
+    const [selectedFile, setSelectedFile] = useState();
     const { loading, error, res } = useSelector((state) => state.productAdd)
     const goBack = {
         color: 'black',
@@ -54,20 +55,25 @@ const AddProducts = () => {
         })
         if (error) {
             createErrorToast(error)
-        } else if(res){
+        } else if (res) {
             createSuccessToast("product successfully added")
         }
     }, [loading, res])
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        const formData = new FormData()
+
+        formData.append("testImage", selectedFile)
+        formData.append("title", data.title)
+        formData.append("productsDetails", data.productsDetails)
+        formData.append("stock", data.stock)
+        formData.append("productType", data.productType)
+        formData.append("amount", data.amount)
         dispatch(addProduct(
-            data.title,
-            data.productsDetails,
-            data.stock,
-            data.amount,
-            data.productType
+            formData
         ))
+
     }
     const handleData = (e) => {
         setData({ ...data, [e.target.name]: e.target.value })
@@ -117,7 +123,12 @@ const AddProducts = () => {
                         <Form.Group className='col'>
                             <Form.Group>
                                 <Form.Label>Chose a product photo</Form.Label>
-                                <Form.Control type='file' />
+                                <Form.Control type='file'
+                                    onChange={(e) => {
+                                        console.log(e.target.files[0])
+                                        setSelectedFile(e.target.files[0])
+                                    }}
+                                />
                                 <hr />
                             </Form.Group>
 

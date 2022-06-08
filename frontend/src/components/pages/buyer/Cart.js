@@ -8,13 +8,22 @@ import '../../style/cart.css'
 import { green } from '@mui/material/colors'
 import { AddShoppingCartSharp } from '@mui/icons-material'
 import Loader from '../../tools/Loader'
+import logo from '../../data/img/logo.png'
+import { createOrderAction } from '../../actions/paymentAction'
+import { orderAction } from '../../actions/orderAction'
+import { toast, ToastContainer } from 'react-toastify'
+
 const AddCart = () => {
+
+
     const dispatch = useDispatch()
     const { cartData, loading } = useSelector((state) => state.getProductFromCart)
     const { data, status } = useSelector((state) => state.deleteProductFromCart)
-    useEffect(() => {
-        dispatch(getProductFromCartAction())
-    }, [data])
+    const { orderResult } = useSelector((state) => state.createOrder)
+    const { orderSave } = useSelector((state) => state.productOrder)
+
+    const [quantity, setQuantity] = useState(1)
+
     let countAmount = 0
     let countProduct = 0
 
@@ -31,17 +40,127 @@ const AddCart = () => {
         }
     })
 
+
+    const handleToastSuccess = (text) => {
+        toast.success(text, {
+            position: "bottom-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: false,
+            draggable: false,
+            progress: undefined,
+            closeButton: false,
+        })
+    }
+
+    const data2 = JSON.parse(localStorage.getItem('admin'))
+
     const width = window.innerWidth
     const handleDelete = (productId) => (e) => {
         e.preventDefault();
         dispatch(deleteCart(productId))
     }
 
+
+    function loadScript(src) {
+        return new Promise((resolve) => {
+            const script = document.createElement('script')
+            script.src = src
+            document.body.appendChild(script)
+            script.onload = () => {
+                resolve(true)
+            }
+            script.onerror = () => {
+                resolve(false)
+            }
+
+        })
+    }
+
+
+    const handlePayment = (name, email, contact, amount, currency = "INR", image, title, sellerId, quantity = 1, productId) => async (e) => {
+        e.preventDefault()
+        // creating order by using Razorpay order API
+        // const sun = amount * quantity
+        dispatch(createOrderAction((amount * quantity), currency))
+
+        const result = await loadScript('https://checkout.razorpay.com/v1/checkout.js')
+        if (result) {
+            const options = {
+                "key": process.env.keyId,
+                "amount": amount,
+                "currency": currency,
+                "name": "Shopify",
+                "image": logo,
+                "order_id": orderResult?.id,
+                "handler": function (response) {
+                    dispatch(orderAction(orderResult?.id,
+                        title,
+                        amount,
+                        image,
+                        response.razorpay_payment_id,
+                        sellerId,
+                        productId.id,
+                        quantity
+                    ))
+                    if (!orderSave) {
+                        handleToastSuccess("Thanks for ordering")
+                    }
+                },
+                "prefill": {
+                    name,
+                    email,
+                    contact
+                },
+                "theme": {
+                    "color": "#22a32a"
+                }
+            };
+            const razorpay = new window.Razorpay(options)
+            razorpay.open()
+        } else {
+            toast.warning("Check internet connection", {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: false,
+                draggable: false,
+                progress: undefined,
+                closeButton: false,
+            })
+        }
+
+    }
+
+
+
+    useEffect(() => {
+
+        dispatch(getProductFromCartAction())
+    }, [data])
+
     return (
         <>
+            <ToastContainer
+                position='top-center'
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={true}
+                closeOnClick
+                pauseOnHover
+                pauseOnFocusLoss
+                draggable
+                theme='colored'
+            />
+
             {loading || status ? <Loader /> : cartData?.map((pro) => {
+
                 countProduct += pro.quantity
                 countAmount += pro.amount * pro.quantity
+
+
                 const base65String = btoa(
                     String.fromCharCode(...new Uint8Array(pro.image.data.data))
                 )
@@ -82,6 +201,8 @@ const AddCart = () => {
                                         onChange={(e) => {
                                             pro.quantity = e.target.value
                                             dispatch(updateCartAction(e.target.value, pro.productId))
+                                            setQuantity(5)
+                                            console.log(e.target.value)
                                         }}
                                     >
                                         <MenuItem value={1}>1</MenuItem>
@@ -105,6 +226,17 @@ const AddCart = () => {
                                             color='success'
                                             startIcon={<AddShoppingCartSharp />}
                                             size={'small'}
+                                            onClick={handlePayment(data2.name,
+                                                data2.email,
+                                                data2.mobile,
+                                                pro.amount * 100,
+                                                "INR",
+                                                pro.image,
+                                                pro.title,
+                                                pro.sellerId,
+                                                quantity,
+                                                pro.productId
+                                            )}
                                         >
                                             Buy
                                         </Button>

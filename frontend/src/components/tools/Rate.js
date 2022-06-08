@@ -34,10 +34,12 @@ const Rate = (props) => {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined
+                closeOnClick: false,
+                pauseOnHover: false,
+                draggable: false,
+                progress: undefined,
+                closeButton: false,
+
             })
         }
         else if (info) {
@@ -45,13 +47,14 @@ const Rate = (props) => {
                 position: "bottom-left",
                 autoClose: 5000,
                 hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined
+                closeOnClick: false,
+                pauseOnHover: false,
+                draggable: false,
+                progress: undefined,
+                closeButton: false,
             })
             rating += value
-            numReviews +=1
+            numReviews += 1
         }
     }, [error, info])
     return (

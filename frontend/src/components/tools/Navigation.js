@@ -45,7 +45,7 @@ const Navigation = () => {
                                     navbarScroll
                                 >
 
-                                    <Form className="d-flex">
+                                    {/* <Form className="d-flex">
                                         <FormControl
                                             type="text"
                                             placeholder="Search"
@@ -54,21 +54,21 @@ const Navigation = () => {
 
                                         />
                                         <Button variant="outline-success">Search</Button>
-                                    </Form>
+                                    </Form> */}
 
 
                                     <NavDropdown title={'Products'} id="navbarScrollingDropdown">
-                                        <LinkContainer to={'/electronicProductPage'}>
+                                        <LinkContainer to={`/product/${'Electronics'}`}>
                                             <NavDropdown.Item>
                                                 Electronics
                                             </NavDropdown.Item>
                                         </LinkContainer>
-                                        <LinkContainer to={'/fashionProductPage'}>
+                                        <LinkContainer to={`/product/${'Fashion'}`}>
                                             <NavDropdown.Item>
                                                 Fashion
                                             </NavDropdown.Item>
                                         </LinkContainer>
-                                        <LinkContainer to={'/appliancesProductPage'}>
+                                        <LinkContainer to={`/product/${'Appliances'}`}>
                                             <NavDropdown.Item>
                                                 Appliances
                                             </NavDropdown.Item>
@@ -93,7 +93,9 @@ const Navigation = () => {
                                             <NavDropdown.Item >Profile</NavDropdown.Item>
                                         </LinkContainer>
 
-                                        <NavDropdown.Item>Orders</NavDropdown.Item>
+                                        <LinkContainer to={data !== null ? `/user=${data.name}/orders` : "/"}>
+                                            <NavDropdown.Item>Orders</NavDropdown.Item>
+                                        </LinkContainer>
 
                                         <LinkContainer to={`/sellerAllProducts/${localStorage.getItem('sellerToken')}`}>
                                             <NavDropdown.Item >Your Seller Account</NavDropdown.Item>
@@ -107,7 +109,7 @@ const Navigation = () => {
 
                     </Container>
                 </Navbar>
-            </header>
+            </header >
         </>
     )
 }

@@ -1,3 +1,4 @@
+import { display } from '@mui/system'
 import axios from 'axios'
 
 export const sellRegistration = (shopName, contactNumber, email, password, address, pincode) =>
@@ -32,6 +33,7 @@ export const sellRegistration = (shopName, contactNumber, email, password, addre
                         type: 'SELLER_REGISTRATION_FAIL',
                         payload: err.response.data.error
                     })
+                    console.log(err)
                 })
         } catch (err) {
             dispatch({
@@ -78,7 +80,7 @@ export const sellerLogin = (email, password) =>
 
     }
 
-export const addProduct = (title, productsDetails, stock, amount, productType ,image ) =>
+export const addProduct = (formData) =>
     async (dispatch) => {
 
 
@@ -90,14 +92,10 @@ export const addProduct = (title, productsDetails, stock, amount, productType ,i
         }
 
         const body = {
-            title,
-            productsDetails,
-            stock,
-            amount,
-            productType,
-            image,
-            name: "hello"
+            formData
         }
+
+        console.log(body)
 
         dispatch({
             type: 'ADD_PRODUCT_REQUEST'
@@ -184,7 +182,7 @@ export const getSellerInfoAction = (productId) => async (dispatch) => {
             }).catch((err) => {
                 dispatch({
                     type: 'GET_SELLER_INFO_FAIL',
-                    payload: err    
+                    payload: err
                 })
             })
     } catch (err) {
@@ -234,3 +232,39 @@ export const productReviewAction = (productId, rating, comment) => async (dispat
         })
     }
 }
+
+
+export const getSellerOrdersAction = () =>
+    async (dispatch) => {
+        const config = {
+            headers: {
+                'content-type': 'application/json',
+                'seller-token': localStorage.getItem('sellerToken')
+            }
+        }
+        dispatch({
+            type: 'GET_SELLER_ORDER_REQUEST'
+        })
+        try {
+            axios.get('http://localhost:5000/api/orders/getSellerOrders', config)
+                .then((res) => {
+                    dispatch({
+                        type: 'GET_SELLER_ORDER_SUCCESSFUL',
+                        payload: res.data
+                    })
+                })
+                .catch((err) => {
+                    dispatch({
+                        type: 'GET_SELLER_ORDER_FAIL',
+                        payload: err
+                    })
+                    console.log(err)
+                })
+        } catch (error) {
+            dispatch({
+                type: 'GET_SELLER_ORDER_FAIL'
+            })
+            console.log(error)
+
+        }
+    }

@@ -42,8 +42,6 @@ const product = new Schema({
         required: true
     },
     
-    name: String,
-
     image: {
         data: Buffer,
         contentType: String

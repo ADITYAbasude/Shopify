@@ -1,12 +1,19 @@
+import { getUserOrderReducer, productOrderReducer } from "./components/reducers/orderReducer";
+
 const { combineReducers } = require("redux");
+
+
 const { logInReducer,
     signUpReducer,
     userInfoReduce } = require('./components/reducers/userReducer')
+
+
 const { sellerRegister,
     addProduct,
     getProducts,
     sellerLoginReducer,
-    getSellerInfoReducer } = require('./components/reducers/sellerReducer')
+    getSellerInfoReducer, 
+    getSellerOrderReducer} = require('./components/reducers/sellerReducer')
 
 const {
     getProductReducer,
@@ -14,8 +21,14 @@ const {
     giveReviewReducer,
     addCartReducer,
     getProductFromCartReducer,
-    deleteProductFromCartReducer
+    deleteProductFromCartReducer,
+    getRandProductReducer
 } = require('./components/reducers/buyerReducer')
+
+
+const {
+    createOrderReducer
+} = require('./components/reducers/paymentReducer')
 
 const reducers = combineReducers({
     userLogin: logInReducer,
@@ -28,10 +41,15 @@ const reducers = combineReducers({
     sellerLogIn: sellerLoginReducer,
     productDetail: getProductDetailReducer,
     getSellerInfo: getSellerInfoReducer,
-    reviewReducer: giveReviewReducer ,
+    reviewReducer: giveReviewReducer,
     addCart: addCartReducer,
     getProductFromCart: getProductFromCartReducer,
-    deleteProductFromCart: deleteProductFromCartReducer
+    deleteProductFromCart: deleteProductFromCartReducer,
+    createOrder: createOrderReducer,
+    productOrder: productOrderReducer,
+    getUserOrder: getUserOrderReducer,
+    getRandProduct: getRandProductReducer,
+    getSellerOrder: getSellerOrderReducer
 })
 
 export default reducers;

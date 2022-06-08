@@ -15,6 +15,8 @@ import Navigation from './components/tools/Navigation';
 import ProductDetail from './components/pages/buyer/ProductDetailed'
 import Cart from './components/pages/buyer/Cart';
 import Profile from './components/pages/buyer/Profile';
+import Orders from './components/pages/buyer/Orders';
+import SeeOrders from './components/pages/seller/SeeOrders';
 
 
 
@@ -36,14 +38,13 @@ function App() {
           <Route exact path='/AddProducts' element={<AddProducts />} />
           <Route exact path='/login' element={<LogIn />} />
           <Route exact path='/signup' element={<SignUp />} />
-          <Route exact path='/electronicProductPage' element={<ProductPage type='Electronics' />} />
-          <Route exact path='/fashionProductPage' element={<ProductPage type='Fashion' />} />
-          <Route exact path='/appliancesProductPage' element={<ProductPage type='Appliances' />} />
+          <Route exact path='/product/:type' element={<ProductPage />} />
           <Route exact path='/sellerLogin' element={<SellerLogin />} />
           <Route path='/productDetail/:id' element={<ProductDetail />} />
           <Route path='/cart/user=:user' element={<Cart />} />
           <Route path='/profile/user=:user' element={<Profile />} />
-
+          <Route path='/user:user/orders' element={<Orders />} />
+          <Route path='/sellerOrders' element={<SeeOrders />} />
         </Routes>
         <Footer />
       </BrowserRouter>

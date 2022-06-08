@@ -1,10 +1,42 @@
-
-body{
+body {
     height: 100vh;
-    
+
 }
-.content{
-    display: flex;
-    /* flex-direction: column;  */
+
+
+.list {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 100px  100px;
     justify-content: center;
+}
+
+@media screen and (max-width: 1070px) {
+    .list {
+        display: grid;
+        grid-template-columns: 2 2 2;
+        gap: 20px 50px;
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 743px) {
+    .list {
+        display: grid;
+        grid-template-columns: auto auto ;
+        gap: 50px 30px;   
+        justify-content: center;
+        
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .list {
+        display: grid;
+        grid-template-columns: auto  ;
+        gap: 50px 0px;   
+        justify-content: center;
+        
+    }
+    
 }

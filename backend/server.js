@@ -12,9 +12,9 @@ app.use(cors())
 
 app.use('/api/auth', require('./routes/auth'))
 app.use('/api/seller', require('./routes/sellerAccountRegistration'))
-app.use('/api/product' , require('./routes/products'))
-// app.use('/api/paymentGateway' , require('./utils/paymentGateway'))
-
+app.use('/api/product', require('./routes/products'))
+app.use('/api/paymentGateway', require('./utils/paymentGateway'))
+app.use('/api/orders', require('./routes/productOrder'))
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)

@@ -181,7 +181,7 @@ export const getProductFromCartAction = () => (dispatch) => {
             .catch((err) => {
                 dispatch({
                     type: 'GET_CARD_LIST_FAIL',
-                    payload: err.response.data
+                    payload: err.response
                 })
                 console.log(err)
             })
@@ -266,3 +266,41 @@ export const updateCartAction = (quantity, productId) => (dispatch) => {
         })
     }
 }
+
+export const getRandProductAction = () =>
+    async (dispatch) => {
+        dispatch({
+            type: 'RAND_PRODUCT_REQUEST',
+        })
+        const config = {
+            headers: {
+                'content-type': 'application/json'
+            }
+        }
+        const body = {}
+        try {
+
+            axios.get('http://localhost:5000/api/product/randProduct', body, config)
+                .then((res) => {
+                    dispatch({
+                        type: 'RAND_PRODUCT_SUCCESSFUL',
+                        payload: res.data[0]
+                    })
+                    console.log(res.data[0])
+                })
+                .catch((err) => {
+                    dispatch({
+                        type: 'RAND_PRODUCT_FAIL',
+                        payload: "Check your internet connection"
+                    })
+                    console.log(err)
+                })
+        } catch (error) {
+            dispatch({
+                type: 'RAND_PRODUCT_FAIL',
+                payload: "Check your internet connection"
+            })
+            console.log(error)
+
+        }
+    }

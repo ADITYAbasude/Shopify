@@ -12,31 +12,39 @@ import user from '../../data/img/user.png'
 import { green } from '@mui/material/colors'
 import Star from '@mui/icons-material/Star';
 import { ToastContainer, toast } from 'react-toastify'
-
+import logo from '../../data/img/logo.png'
+import { createOrderAction } from '../../actions/paymentAction'
+import { orderAction } from '../../actions/orderAction'
 
 const DetailedProduct = () => {
     const productId = useParams()
     const dispatch = useDispatch()
-    const { loading, error, data } = useSelector((state) => state.productDetail)
+    const { loading, data } = useSelector((state) => state.productDetail)
     const { sellerInfo } = useSelector((state) => state.getSellerInfo)
+    const { orderResult } = useSelector((state) => state.createOrder)
     const { info } = useSelector((state) => state.addCart)
+    const { orderSave } = useSelector((state) => state.productOrder)
+    const data2 = JSON.parse(localStorage.getItem('admin'))
 
 
+    const handleToastSuccess = (text) => {
+        toast.success(text, {
+            position: "bottom-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: false,
+            draggable: false,
+            progress: undefined,
+            closeButton: false,
+        })
+    }
 
-
-    const handleAddCart = (title, amount, stock , image) => (e) => {
+    const handleAddCart = (title, amount, stock, image) => (e) => {
         e.preventDefault()
-        dispatch(addToTheCartAction(productId, title, amount, stock , image))
+        dispatch(addToTheCartAction(productId, title, amount, stock, image))
         if (info) {
-            toast.success(info, {
-                position: "bottom-left",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined
-            })
+            handleToastSuccess(info)
         }
     }
 
@@ -53,6 +61,62 @@ const DetailedProduct = () => {
             }
         }
     })
+
+    function loadScript(src) {
+        return new Promise((resolve) => {
+            const script = document.createElement('script')
+            script.src = src
+            document.body.appendChild(script)
+            script.onload = () => {
+                resolve(true)
+            }
+            script.onerror = () => {
+                resolve(false)
+            }
+
+        })
+    }
+
+    const handlePayment = (name, email, contact, amount, currency = "INR", image, title, sellerId, quantity = 1) => async (e) => {
+        e.preventDefault()
+        // creating order by using Razorpay order API
+        dispatch(createOrderAction(amount, currency))
+
+        await loadScript('https://checkout.razorpay.com/v1/checkout.js')
+        const options = {
+            "key": process.env.keyId,
+            "amount": amount,
+            "currency": currency,
+            "name": "Shopify",
+            "image": logo,
+            "order_id": orderResult?.id,
+            "handler": function (response) {
+                dispatch(orderAction(orderResult?.id,
+                    title,
+                    amount,
+                    image,
+                    response.razorpay_payment_id,
+                    sellerId,
+                    productId.id,
+                    quantity
+                ))
+                if (!orderSave) {
+                    handleToastSuccess("Thanks for ordering")
+                }
+            },
+            "prefill": {
+                name,
+                email,
+                contact
+            },
+            "theme": {
+                "color": "#22a32a"
+            }
+        };
+        const razorpay = new window.Razorpay(options)
+        razorpay.open()
+
+    }
 
     const width = window.innerWidth
     useEffect(() => {
@@ -87,7 +151,6 @@ const DetailedProduct = () => {
                                     justifyContent: 'center',
                                 }}>
                                     <Image src={`data:image/png;base64,${base65String}`}
-                                        // fluid='true'a
                                         alt='img'
                                         style={{
                                             marginTop: '50px',
@@ -114,6 +177,20 @@ const DetailedProduct = () => {
                                         <Button
                                             variant='contained'
                                             color='success'
+                                            className='my-3 mx-2'
+                                            type='submit'
+                                            startIcon={<LocalMallOutlined />}
+                                            size={width <= 600 ? 'small' : 'medium'}
+                                            onClick={handlePayment(data2.name, data2.email, data2.mobile, pro.amount*100, "INR", pro.image, pro.title, pro.sellerId)}
+                                            sx={{
+                                                display: `${pro.stock > 0 ? '' : 'none'}`,
+                                            }}
+                                        >
+                                            Buy
+                                        </Button>
+                                        <Button
+                                            variant='contained'
+                                            color='success'
                                             className='my-3'
                                             type='submit'
                                             startIcon={<AddShoppingCartSharp />}
@@ -122,16 +199,7 @@ const DetailedProduct = () => {
                                         >
                                             Add cart
                                         </Button>
-                                        <Button
-                                            variant='contained'
-                                            color='success'
-                                            className='my-3 mx-2'
-                                            type='submit'
-                                            startIcon={<LocalMallOutlined />}
-                                            size={width <= 600 ? 'small' : 'medium'}
-                                        >
-                                            Buy
-                                        </Button>
+
 
                                     </ThemeProvider>
                                 </Form.Group>
