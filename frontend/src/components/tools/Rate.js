@@ -23,7 +23,8 @@ const Rate = (props) => {
     })
     const dispatch = useDispatch()
     let { rating, productId, numReviews } = props
-    const name = "aditya"
+    const data2 = JSON.parse(localStorage.getItem('admin'))
+    const name = data2?.name
     const { error, loading, info } = useSelector((state) => state.reviewReducer)
 
 

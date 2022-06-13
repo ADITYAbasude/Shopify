@@ -202,7 +202,6 @@ const AddCart = () => {
                                             pro.quantity = e.target.value
                                             dispatch(updateCartAction(e.target.value, pro.productId))
                                             setQuantity(5)
-                                            console.log(e.target.value)
                                         }}
                                     >
                                         <MenuItem value={1}>1</MenuItem>

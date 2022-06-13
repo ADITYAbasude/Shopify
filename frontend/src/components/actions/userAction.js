@@ -30,7 +30,7 @@ export const signUp = (name, mobile_number, email, password) => async (dispatch)
                     payload: res.data.jwtToken
                 })
                 localStorage.setItem('jwtToken', res.data.jwtToken)
-                console.log(res.data.jwtToken)
+                
             })
             .catch((err) => {
                 dispatch({

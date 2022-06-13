@@ -8,7 +8,6 @@ const ProductCart = (props) => {
 
     const { pro } = props
     const history = useNavigate()
-    console.log(pro.image.data.data)
     const base65String = btoa(
         String.fromCharCode(...new Uint8Array(pro.image.data.data))
     )

@@ -95,7 +95,7 @@ export const addProduct = (formData) =>
             formData
         }
 
-        console.log(body)
+        
 
         dispatch({
             type: 'ADD_PRODUCT_REQUEST'
@@ -108,7 +108,7 @@ export const addProduct = (formData) =>
                         type: "ADD_PRODUCT_SUCCESSFULLY",
                         payload: res.data
                     })
-                    console.log(res.data)
+                    
                 })
                 .catch((err) => {
                     dispatch({

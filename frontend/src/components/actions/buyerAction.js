@@ -99,7 +99,7 @@ export const giveReviewsAction = (productId, name, rating, comment) => async (di
                     type: 'REVIEW_SUCCESSFULLY',
                     payload: res.data.message
                 })
-                console.log(res.data.message)
+                
             })
             .catch((err) => {
                 dispatch({
@@ -147,7 +147,7 @@ export const addToTheCartAction = (productId, title, amount, stock, image) => as
                     type: 'USER_REQUEST_TO_ADD_THE_CART_FAIL',
                     payload: err.response
                 })
-                console.log(err)
+                
             })
     } catch (err) {
         dispatch({
@@ -183,7 +183,7 @@ export const getProductFromCartAction = () => (dispatch) => {
                     type: 'GET_CARD_LIST_FAIL',
                     payload: err.response
                 })
-                console.log(err)
+                
             })
     } catch (error) {
         dispatch({
@@ -213,7 +213,7 @@ export const deleteCart = (productId) => (dispatch) => {
                     type: 'DELETE_CART_SUCCESSFUL',
                     payload: res.data.products
                 })
-                console.log(res.data.products)
+                
             })
             .catch((err) => {
                 dispatch({
@@ -286,21 +286,21 @@ export const getRandProductAction = () =>
                         type: 'RAND_PRODUCT_SUCCESSFUL',
                         payload: res.data[0]
                     })
-                    console.log(res.data[0])
+                    
                 })
                 .catch((err) => {
                     dispatch({
                         type: 'RAND_PRODUCT_FAIL',
                         payload: "Check your internet connection"
                     })
-                    console.log(err)
+                    
                 })
         } catch (error) {
             dispatch({
                 type: 'RAND_PRODUCT_FAIL',
                 payload: "Check your internet connection"
             })
-            console.log(error)
+            
 
         }
     }

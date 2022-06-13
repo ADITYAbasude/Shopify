@@ -22,7 +22,6 @@ const Profile = () => {
         address: data.address,
         mobile: data.mobile
     })
-    console.log((info))
 
     const handleUserInfo = (e) => {
         setInfo({ ...info, [e.target.name]: e.target.value })

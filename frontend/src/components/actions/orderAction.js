@@ -28,7 +28,7 @@ export const orderAction = (orderId, title, amount, image, paymentId, sellerId ,
                     type: 'ORDER_SUCCESSFUL',
                     payload: res.data.message
                 })
-                console.log(res.data)
+                
             })
             .catch((err) => {
                 dispatch({
@@ -67,7 +67,7 @@ export const getUserOrdersAction = () => async (dispatch) => {
                     type: 'GET_USER_ORDER_SUCCESSFUL',
                     payload: res.data
                 })
-                console.log(res.data)
+                
             })
             .catch((err) => {
                 dispatch({

@@ -21,7 +21,6 @@ export const Dashboard = () => {
             history('/login')
         else
             dispatch(getRandProductAction())
-        console.log(data)
     }, [])
     return (
         <>

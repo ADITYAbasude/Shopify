@@ -17,13 +17,12 @@
     "express-validator": "^6.14.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.8",
+    "morgan": "^1.10.0",
     "multer": "^1.4.4",
+    "nodemon": "^2.0.16",
     "razorpay": "^2.8.1",
     "react-toastify": "^8.2.0",
     "redux-devtools-extension": "^2.13.9",
     "shortid": "^2.2.16"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.15"
   }
 }
