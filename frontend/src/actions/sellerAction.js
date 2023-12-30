@@ -22,7 +22,11 @@ export const sellRegistration =
 
     try {
       axios
-        .post("http://localhost:5000/api/seller/registration", body, config)
+        .post(
+          "https://shopify-5cz7.onrender.com/api/seller/registration",
+          body,
+          config
+        )
         .then((res) => {
           dispatch({
             type: "SELLER_REGISTRATION_SUCCESSFULLY",
@@ -59,7 +63,11 @@ export const sellerLogin = (email, password) => async (dispatch) => {
 
   try {
     axios
-      .post(`http://localhost:5000/api/seller/sellerLogin`, body, config)
+      .post(
+        `https://shopify-5cz7.onrender.com/api/seller/sellerLogin`,
+        body,
+        config
+      )
       .then((res) => {
         dispatch({
           type: "SELLER_LOGIN_SUCCESSFUL",
@@ -95,7 +103,11 @@ export const addProduct = (formData) => async (dispatch) => {
 
   try {
     axios
-      .post("http://localhost:5000/api/product/addProduct", formData, config)
+      .post(
+        "https://shopify-5cz7.onrender.com/api/product/addProduct",
+        formData,
+        config
+      )
       .then((res) => {
         dispatch({
           type: "ADD_PRODUCT_SUCCESSFULLY",
@@ -129,7 +141,10 @@ export const getAllProducts = () => async (dispatch) => {
   });
   try {
     axios
-      .get(`http://localhost:5000/api/product/getSellerProducts`, config)
+      .get(
+        `https://shopify-5cz7.onrender.com/api/product/getSellerProducts`,
+        config
+      )
       .then((res) => {
         dispatch({
           type: "GET_SELLER_PRODUCTS_SUCCESSFUL",
@@ -163,7 +178,10 @@ export const getSellerInfoAction = (productId) => async (dispatch) => {
   });
   try {
     axios
-      .post(`http://localhost:5000/api/seller/getSeller/${productId}`, config)
+      .post(
+        `https://shopify-5cz7.onrender.com/api/seller/getSeller/${productId}`,
+        config
+      )
       .then((res) => {
         dispatch({
           type: "GET_SELLER_INFO_SUCCESSFUL",
@@ -236,7 +254,10 @@ export const getSellerOrdersAction = () => async (dispatch) => {
   });
   try {
     axios
-      .get("http://localhost:5000/api/orders/getSellerOrders", config)
+      .get(
+        "https://shopify-5cz7.onrender.com/api/orders/getSellerOrders",
+        config
+      )
       .then((res) => {
         dispatch({
           type: "GET_SELLER_ORDER_SUCCESSFUL",

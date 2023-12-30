@@ -14,7 +14,7 @@ export const getBuyerProducts = (productType) => async (dispatch) => {
   try {
     axios
       .get(
-        `http://localhost:5000/api/product/getProducts/${productType}`,
+        `https://shopify-5cz7.onrender.com/api/product/getProducts/${productType}`,
         config
       )
       .then((res) => {
@@ -51,7 +51,7 @@ export const getProductDetail = (productId) => async (dispatch) => {
   try {
     axios
       .get(
-        `http://localhost:5000/api/product/productDetail/${productId}`,
+        `https://shopify-5cz7.onrender.com/api/product/productDetail/${productId}`,
         config
       )
       .then((res) => {
@@ -95,7 +95,7 @@ export const giveReviewsAction =
     try {
       axios
         .post(
-          `http://localhost:5000/api/product/${productId}/rating`,
+          `https://shopify-5cz7.onrender.com/api/product/${productId}/rating`,
           body,
           config
         )
@@ -140,7 +140,7 @@ export const addToTheCartAction =
     try {
       axios
         .post(
-          `http://localhost:5000/api/product/addCart/${productId.id}`,
+          `https://shopify-5cz7.onrender.com/api/product/addCart/${productId.id}`,
           body,
           config
         )
@@ -176,7 +176,7 @@ export const getProductFromCartAction = () => (dispatch) => {
   });
   try {
     axios
-      .get(`http://localhost:5000/api/product/cardList`, config)
+      .get(`https://shopify-5cz7.onrender.com/api/product/cardList`, config)
       .then((res) => {
         dispatch({
           type: "GET_CARD_LIST_SUCCESSFUL",
@@ -213,7 +213,7 @@ export const deleteCart = (productId) => (dispatch) => {
   try {
     axios
       .delete(
-        `http://localhost:5000/api/product/deleteCart/${productId}`,
+        `https://shopify-5cz7.onrender.com/api/product/deleteCart/${productId}`,
         config
       )
       .then((res) => {
@@ -253,7 +253,7 @@ export const updateCartAction = (quantity, productId) => (dispatch) => {
   try {
     axios
       .put(
-        `http://localhost:5000/api/product/updateQuantity/${productId}`,
+        `https://shopify-5cz7.onrender.com/api/product/updateQuantity/${productId}`,
         body,
         config
       )
@@ -289,7 +289,11 @@ export const getRandProductAction = () => async (dispatch) => {
   const body = {};
   try {
     axios
-      .get("http://localhost:5000/api/product/randProduct", body, config)
+      .get(
+        "https://shopify-5cz7.onrender.com/api/product/randProduct",
+        body,
+        config
+      )
       .then((res) => {
         dispatch({
           type: "RAND_PRODUCT_SUCCESSFUL",
