@@ -8,7 +8,10 @@ import { LinkContainer } from "react-router-bootstrap";
 const Navigation = () => {
   const history = useNavigate();
   const token = localStorage.getItem("jwtToken");
-  const data = JSON.parse(localStorage.getItem("admin"));
+  const data =
+    localStorage.getItem("admin") !== "undefined"
+      ? JSON.parse(localStorage.getItem("admin"))
+      : null;
   const dispatch = useDispatch();
 
   const handleLogOut = () => {

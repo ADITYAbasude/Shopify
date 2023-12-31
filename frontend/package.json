@@ -25,6 +25,7 @@
     "react-top-loading-bar": "^2.1.0",
     "redux": "^4.2.1",
     "redux-thunk": "^2.4.1",
+    "shopify": "file:..",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
