@@ -42,38 +42,39 @@ export const Dashboard = () => {
             }}
             className="list"
           >
-            {data?.map((item, index) => {
-              console.log(item);
-              const base65String = btoa(
-                String.fromCharCode(...new Uint8Array(item.image.data.data))
-              );
-              return (
-                <Card
-                  sx={{
-                    m: 0,
-                    maxWidth: "300px",
-                    textAlign: "center",
-                  }}
-                  key={index}
-                  onClick={() => {
-                    history(`/productDetail/${item._id}`);
-                  }}
-                >
-                  <Image
-                    src={`data:image/png;base64,${base65String}`}
-                    fluid
-                    width={"200px"}
-                  />
-                  <CardContent>
-                    <Typography>{item.title}</Typography>
-                    <br />
-                    <Typography component={"span"} fontWeight={"bold"}>
-                      ₹ {item.amount}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              );
-            })}
+            {data !== undefined && data !== null && data !== "<"
+              ? data?.map((item, index) => {
+                  const base65String = btoa(
+                    String.fromCharCode(...new Uint8Array(item.image.data.data))
+                  );
+                  return (
+                    <Card
+                      sx={{
+                        m: 0,
+                        maxWidth: "300px",
+                        textAlign: "center",
+                      }}
+                      key={index}
+                      onClick={() => {
+                        history(`/productDetail/${item._id}`);
+                      }}
+                    >
+                      <Image
+                        src={`data:image/png;base64,${base65String}`}
+                        fluid
+                        width={"200px"}
+                      />
+                      <CardContent>
+                        <Typography>{item.title}</Typography>
+                        <br />
+                        <Typography component={"span"} fontWeight={"bold"}>
+                          ₹ {item.amount}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  );
+                })
+              : " "}
           </Box>
         </div>
       )}
