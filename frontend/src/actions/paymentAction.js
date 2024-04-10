@@ -13,7 +13,7 @@ export const createOrderAction = (amount, currency) => async (dispatch) => {
   try {
     axios
       .post(
-        "https://shopify-5cz7.onrender.com/api/paymentGateway/createOrder",
+        `${process.env.REACT_APP_API_BASE}/api/paymentGateway/createOrder`,
         body
       )
       .then((res) => {

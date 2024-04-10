@@ -1,4 +1,4 @@
-import { display } from "@mui/system";
+
 import axios from "axios";
 
 export const sellRegistration =
@@ -23,7 +23,7 @@ export const sellRegistration =
     try {
       axios
         .post(
-          "https://shopify-5cz7.onrender.com/api/seller/registration",
+          `${process.env.REACT_APP_API_BASE}/api/seller/registration`,
           body,
           config
         )
@@ -64,7 +64,7 @@ export const sellerLogin = (email, password) => async (dispatch) => {
   try {
     axios
       .post(
-        `https://shopify-5cz7.onrender.com/api/seller/sellerLogin`,
+        `${process.env.REACT_APP_API_BASE}/api/seller/sellerLogin`,
         body,
         config
       )
@@ -104,7 +104,7 @@ export const addProduct = (formData) => async (dispatch) => {
   try {
     axios
       .post(
-        "https://shopify-5cz7.onrender.com/api/product/addProduct",
+        `${process.env.REACT_APP_API_BASE}/api/product/addProduct`,
         formData,
         config
       )
@@ -142,7 +142,7 @@ export const getAllProducts = () => async (dispatch) => {
   try {
     axios
       .get(
-        `https://shopify-5cz7.onrender.com/api/product/getSellerProducts`,
+        `${process.env.REACT_APP_API_BASE}/api/product/getSellerProducts`,
         config
       )
       .then((res) => {
@@ -179,7 +179,7 @@ export const getSellerInfoAction = (productId) => async (dispatch) => {
   try {
     axios
       .post(
-        `https://shopify-5cz7.onrender.com/api/seller/getSeller/${productId}`,
+        `${process.env.REACT_APP_API_BASE}/api/seller/getSeller/${productId}`,
         config
       )
       .then((res) => {
@@ -222,7 +222,7 @@ export const productReviewAction =
 
     try {
       await axios
-        .post(`api/product/${productId}/rating`, body, config)
+        .post(`${process.env.REACT_APP_API_BASE}/api/product/${productId}/rating`, body, config)
         .then((res) => {
           dispatch({
             type: "PRODUCT_REVIEW_SUCCESSFULLY",
@@ -255,7 +255,7 @@ export const getSellerOrdersAction = () => async (dispatch) => {
   try {
     axios
       .get(
-        "https://shopify-5cz7.onrender.com/api/orders/getSellerOrders",
+        `${process.env.REACT_APP_API_BASE}/api/orders/getSellerOrders`,
         config
       )
       .then((res) => {

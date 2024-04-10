@@ -20,7 +20,7 @@ export const signUp =
 
     try {
       axios
-        .post(`https://shopify-5cz7.onrender.com/api/auth/signUp`, body, config)
+        .post(`${process.env.REACT_APP_API_BASE}/api/auth/signUp`, body, config)
         .then((res) => {
           dispatch({
             type: "USER_SIGNUP_SUCCESSFULLY",
@@ -61,7 +61,7 @@ export const logIn = (email, password) => async (dispatch) => {
 
   try {
     axios
-      .post(`https://shopify-5cz7.onrender.com/api/auth/login`, body, config)
+      .post(`${process.env.REACT_APP_API_BASE}/api/auth/login`, body, config)
       .then((res) => {
         dispatch({
           type: "USER_LOGIN_SUCCESSFULLY",
@@ -97,7 +97,7 @@ export const userInfoAction = () => async (dispatch) => {
 
   try {
     axios
-      .get("https://shopify-5cz7.onrender.com/api/auth/getUserInfo", config)
+      .get(`${process.env.REACT_APP_API_BASE}/api/auth/getUserInfo`, config)
       .then((res) => {
         dispatch({
           type: "USERINFO_SUCCESSFULLY",

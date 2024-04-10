@@ -26,7 +26,7 @@ export const orderAction =
       console.log(sellerId);
       axios
         .post(
-          `https://shopify-5cz7.onrender.com/api/orders/orders/${orderId}`,
+          `${process.env.REACT_APP_API_BASE}/api/orders/orders/${orderId}`,
           body,
           config
         )
@@ -65,7 +65,7 @@ export const getUserOrdersAction = () => async (dispatch) => {
 
   try {
     axios
-      .get(`https://shopify-5cz7.onrender.com/api/orders/getOrders`, config)
+      .get(`${process.env.REACT_APP_API_BASE}/api/orders/getOrders`, config)
       .then((res) => {
         dispatch({
           type: "GET_USER_ORDER_SUCCESSFUL",

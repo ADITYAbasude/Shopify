@@ -14,7 +14,7 @@ export const getBuyerProducts = (productType) => async (dispatch) => {
   try {
     axios
       .get(
-        `https://shopify-5cz7.onrender.com/api/product/getProducts/${productType}`,
+        `${process.env.REACT_APP_API_BASE}/api/product/getProducts/${productType}`,
         config
       )
       .then((res) => {
@@ -51,7 +51,7 @@ export const getProductDetail = (productId) => async (dispatch) => {
   try {
     axios
       .get(
-        `https://shopify-5cz7.onrender.com/api/product/productDetail/${productId}`,
+        `${process.env.REACT_APP_API_BASE}/api/product/productDetail/${productId}`,
         config
       )
       .then((res) => {
@@ -95,7 +95,7 @@ export const giveReviewsAction =
     try {
       axios
         .post(
-          `https://shopify-5cz7.onrender.com/api/product/${productId}/rating`,
+          `${process.env.REACT_APP_API_BASE}/api/product/${productId}/rating`,
           body,
           config
         )
@@ -140,7 +140,7 @@ export const addToTheCartAction =
     try {
       axios
         .post(
-          `https://shopify-5cz7.onrender.com/api/product/addCart/${productId.id}`,
+          `${process.env.REACT_APP_API_BASE}/api/product/addCart/${productId.id}`,
           body,
           config
         )
@@ -176,7 +176,7 @@ export const getProductFromCartAction = () => (dispatch) => {
   });
   try {
     axios
-      .get(`https://shopify-5cz7.onrender.com/api/product/cardList`, config)
+      .get(`${process.env.REACT_APP_API_BASE}/api/product/cardList`, config)
       .then((res) => {
         dispatch({
           type: "GET_CARD_LIST_SUCCESSFUL",
@@ -213,7 +213,7 @@ export const deleteCart = (productId) => (dispatch) => {
   try {
     axios
       .delete(
-        `https://shopify-5cz7.onrender.com/api/product/deleteCart/${productId}`,
+        `${process.env.REACT_APP_API_BASE}/api/product/deleteCart/${productId}`,
         config
       )
       .then((res) => {
@@ -253,7 +253,7 @@ export const updateCartAction = (quantity, productId) => (dispatch) => {
   try {
     axios
       .put(
-        `https://shopify-5cz7.onrender.com/api/product/updateQuantity/${productId}`,
+        `${process.env.REACT_APP_API_BASE}/api/product/updateQuantity/${productId}`,
         body,
         config
       )
@@ -290,7 +290,7 @@ export const getRandProductAction = () => async (dispatch) => {
   try {
     axios
       .get(
-        "https://shopify-5cz7.onrender.com/api/product/randProduct",
+        `${process.env.REACT_APP_API_BASE}/api/product/randProduct`,
         body,
         config
       )

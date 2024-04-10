@@ -24,6 +24,7 @@ const upload = multer({ storage: storage });
 
 // taking a random products from product collection
 router.get("/randProduct", async (req, res) => {
+  console.log('called')
   const product = await addProductModule.find().limit(6);
   let arr = [];
   try {
