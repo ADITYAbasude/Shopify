@@ -13,7 +13,7 @@ export const createOrderAction = (amount, currency) => async (dispatch) => {
   try {
     axios
       .post(
-        `${process.env.REACT_APP_API_BASE}/api/paymentGateway/createOrder`,
+        `/api/paymentGateway/createOrder`,
         body
       )
       .then((res) => {

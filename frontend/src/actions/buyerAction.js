@@ -14,7 +14,7 @@ export const getBuyerProducts = (productType) => async (dispatch) => {
   try {
     axios
       .get(
-        `${process.env.REACT_APP_API_BASE}/api/product/getProducts/${productType}`,
+        `/api/product/getProducts/${productType}`,
         config
       )
       .then((res) => {
@@ -51,7 +51,7 @@ export const getProductDetail = (productId) => async (dispatch) => {
   try {
     axios
       .get(
-        `${process.env.REACT_APP_API_BASE}/api/product/productDetail/${productId}`,
+        `/api/product/productDetail/${productId}`,
         config
       )
       .then((res) => {
@@ -95,7 +95,7 @@ export const giveReviewsAction =
     try {
       axios
         .post(
-          `${process.env.REACT_APP_API_BASE}/api/product/${productId}/rating`,
+          `/api/product/${productId}/rating`,
           body,
           config
         )
@@ -140,7 +140,7 @@ export const addToTheCartAction =
     try {
       axios
         .post(
-          `${process.env.REACT_APP_API_BASE}/api/product/addCart/${productId.id}`,
+          `/api/product/addCart/${productId.id}`,
           body,
           config
         )
@@ -176,7 +176,7 @@ export const getProductFromCartAction = () => (dispatch) => {
   });
   try {
     axios
-      .get(`${process.env.REACT_APP_API_BASE}/api/product/cardList`, config)
+      .get(`/api/product/cardList`, config)
       .then((res) => {
         dispatch({
           type: "GET_CARD_LIST_SUCCESSFUL",
@@ -213,7 +213,7 @@ export const deleteCart = (productId) => (dispatch) => {
   try {
     axios
       .delete(
-        `${process.env.REACT_APP_API_BASE}/api/product/deleteCart/${productId}`,
+        `/api/product/deleteCart/${productId}`,
         config
       )
       .then((res) => {
@@ -253,7 +253,7 @@ export const updateCartAction = (quantity, productId) => (dispatch) => {
   try {
     axios
       .put(
-        `${process.env.REACT_APP_API_BASE}/api/product/updateQuantity/${productId}`,
+        `/api/product/updateQuantity/${productId}`,
         body,
         config
       )
@@ -290,7 +290,7 @@ export const getRandProductAction = () => async (dispatch) => {
   try {
     axios
       .get(
-        `${process.env.REACT_APP_API_BASE}/api/product/randProduct`,
+        `/api/product/randProduct`,
         body,
         config
       )

@@ -26,7 +26,7 @@ export const orderAction =
       console.log(sellerId);
       axios
         .post(
-          `${process.env.REACT_APP_API_BASE}/api/orders/orders/${orderId}`,
+          `/api/orders/orders/${orderId}`,
           body,
           config
         )
@@ -65,7 +65,7 @@ export const getUserOrdersAction = () => async (dispatch) => {
 
   try {
     axios
-      .get(`${process.env.REACT_APP_API_BASE}/api/orders/getOrders`, config)
+      .get(`/api/orders/getOrders`, config)
       .then((res) => {
         dispatch({
           type: "GET_USER_ORDER_SUCCESSFUL",

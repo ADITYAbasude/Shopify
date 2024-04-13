@@ -23,7 +23,7 @@ export const sellRegistration =
     try {
       axios
         .post(
-          `${process.env.REACT_APP_API_BASE}/api/seller/registration`,
+          `/api/seller/registration`,
           body,
           config
         )
@@ -64,7 +64,7 @@ export const sellerLogin = (email, password) => async (dispatch) => {
   try {
     axios
       .post(
-        `${process.env.REACT_APP_API_BASE}/api/seller/sellerLogin`,
+        `/api/seller/sellerLogin`,
         body,
         config
       )
@@ -104,7 +104,7 @@ export const addProduct = (formData) => async (dispatch) => {
   try {
     axios
       .post(
-        `${process.env.REACT_APP_API_BASE}/api/product/addProduct`,
+        `/api/product/addProduct`,
         formData,
         config
       )
@@ -142,7 +142,7 @@ export const getAllProducts = () => async (dispatch) => {
   try {
     axios
       .get(
-        `${process.env.REACT_APP_API_BASE}/api/product/getSellerProducts`,
+        `/api/product/getSellerProducts`,
         config
       )
       .then((res) => {
@@ -179,7 +179,7 @@ export const getSellerInfoAction = (productId) => async (dispatch) => {
   try {
     axios
       .post(
-        `${process.env.REACT_APP_API_BASE}/api/seller/getSeller/${productId}`,
+        `/api/seller/getSeller/${productId}`,
         config
       )
       .then((res) => {
@@ -222,7 +222,7 @@ export const productReviewAction =
 
     try {
       await axios
-        .post(`${process.env.REACT_APP_API_BASE}/api/product/${productId}/rating`, body, config)
+        .post(`/api/product/${productId}/rating`, body, config)
         .then((res) => {
           dispatch({
             type: "PRODUCT_REVIEW_SUCCESSFULLY",
@@ -255,7 +255,7 @@ export const getSellerOrdersAction = () => async (dispatch) => {
   try {
     axios
       .get(
-        `${process.env.REACT_APP_API_BASE}/api/orders/getSellerOrders`,
+        `/api/orders/getSellerOrders`,
         config
       )
       .then((res) => {
